@@ -50,9 +50,9 @@ class QiniuStorage(BaseStorage):
             base_url = self.base_url
 
         if self.base_dir:
-            urlbase = urljoin(base_url, self.base_dir)
+            base_url = urljoin(base_url, self.base_dir)
 
-        return urljoin(urlbase, filename)
+        return urljoin(base_url, filename)
 
     def generate_upload_token(self, filename=None):
         """
