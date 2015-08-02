@@ -71,15 +71,15 @@ class QiniuStorage(BaseStorage):
         if token is None:
             token = self.generate_upload_token()
         stream = storage.stream
-        ret, err = qiniu.put_data(token, filename, stream)
-        if err:
-            raise QiniuException(err)
+        ret, info = qiniu.put_data(token, filename, stream)
+        if ret is None:
+            raise QiniuException(info)
         return ret
 
     def delete(self, filename):
-        ret, err = self._client.delete(self.bucket, filename)
-        if err:
-            raise QiniuException(err)
+        ret, info = self._client.delete(self.bucket, filename)
+        if ret is None:
+            raise QiniuException(info)
         return ret
 
 
